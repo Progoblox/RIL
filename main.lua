@@ -363,10 +363,9 @@ local function generateCodeInstance(instance)
 			code = code.."'"..tostring(value).."'"
 		elseif key == "FontFace" then
 			code = code.."Font.new("..
-			"\""..value.Family.."\""..
-			", "..value.Weight..
-			", "..value.Style..
-			")"
+			"\""..tostring(value.Family).."\""..
+			", "..tostring(value.Weight)..
+			", "..tostring(value.Style)..")"
 		elseif key == "AnchorPoint" then
 			local x, y = value.X, value.Y
 			code = code.."Vector2.new("..x..", "..y..")"
