@@ -359,7 +359,7 @@ local function generateCodeInstance(instance)
 	for key, value in pairs(data) do
 		code = code.."object."..key.." = "
 
-		if key == "Text" then
+		if key == "Text" or key == "PlaceholderText" then
 			code = code.."'"..tostring(value).."'"
 		elseif key == "FontFace" then
 			code = code.."Font.new("..
@@ -375,6 +375,8 @@ local function generateCodeInstance(instance)
 			code = code.."Vector2.new("..tostring(value)..")"
 		elseif key == "Image" or (key == "HoverImage" and value ~= nil) then
 			code = code.."'"..tostring(value).."'"
+		elseif key == "PlaceholderColor3" then
+			code = code.."Color3.new("..value..")"
 		elseif typeof(value) == "CFrame" then
 			code = code.."CFrame.new("..tostring(value)..")"
 		elseif typeof(value) == "BrickColor" then
