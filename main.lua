@@ -114,7 +114,7 @@ end
 local function getBillboardGuiProperties(instance)
 	if instance:IsA("BillboardGui") then
 		return {
-		    Active = instance.Active,
+			Active = instance.Active,
 			Enabled = instance.Enabled,
 			ResetOnSpawn = instance.ResetOnSpawn,
 			ZIndexBehavior = instance.ZIndexBehavior,
@@ -351,62 +351,62 @@ local function generateCodeInstance(instance)
 	end
 
 	code = code..[[
-    local object = Instance.new("]]..tostring(instance.ClassName)..[[")
-    object.Name = "]]..tostring(instance.Name)..[["
+	local object = Instance.new("]]..tostring(instance.ClassName)..[[")
+	object.Name = "]]..tostring(instance.Name)..[["
 
-    ]] 
+	]]
 
 	for key, value in pairs(data) do
-        code = code.."object."..key.." = "
-    
-        if key == "Text" then
-            code = code.."'"..tostring(value).."'"
-        elseif key == "FontFace" then
-            code = code.."Font {"..
-                   " Family = \""..value.Family.."\","..
-                   " Weight = "..value.Weight..","..
-                   " Style = "..value.Style..
-                   " }"
-        elseif key == "AnchorPoint" then
-            local x, y = value.X, value.Y
-            code = code.."Vector2.new("..x..", "..y..")"
-        elseif key == "StudsOffsetWorldSpace" or key == "StudsOffset" then
-            code = code.."Vector3.new("..tostring(value)..")"
-        elseif key == "SizeOffset"  then
-            code = code.."Vector2.new("..tostring(value)..")"
-        elseif key == "Image" or (key == "HoverImage" and value ~= nil) then
-            code = code.."'"..tostring(value).."'"
-        elseif typeof(value) == "CFrame" then
-            code = code.."CFrame.new("..tostring(value)..")"
-        elseif typeof(value) == "BrickColor" then
-            code = code.."BrickColor.new(\""..tostring(value).."\")"
-        elseif typeof(value) == "Vector3" and key == "Size" then
-            local x, y, z = value.X, value.Y, value.Z
-            code = code.."Vector3.new("..x..", "..y..", "..z..")"
-        elseif typeof(value) == "UDim2" and (key == "Position" or key == "Size") then
-            local xScale, xOffset, yScale, yOffset = value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset
-            code = code.."UDim2.new("..xScale..", "..xOffset..", "..yScale..", "..yOffset..")"
-        elseif typeof(value) == "EnumItem" and key == "BorderMode" then
-            code = code..tostring(value)
-        elseif typeof(value) == "Color3" and (key == "BorderColor3" or key == "BackgroundColor3" or key == "TextColor3" or key == "TextStrokeColor3" or key == "ImageColor3") then
-            local r, g, b = value.R, value.G, value.B
-            code = code.."Color3.new("..r..", "..g..", "..b..")"
-        elseif typeof(value) == "EnumItem" and key == "Rotation" then
-            code = code.."Enum.Rotation."..tostring(value)
-        elseif typeof(value) == "EnumItem" and key == "SomeEnum" then
-            code = code.."Enum.SomeEnum."..tostring(value)
-        elseif typeof(value) == "Axes" then
-            code = code.."Axes.new("..tostring(value)..")"
-        elseif typeof(value) == "Ray" then
-            code = code.."Ray.new("..tostring(value.Origin)..", "..tostring(value.Direction)..")"
-        else
-            code = code..tostring(value)
-        end
-    
-        code = code.."\n"
-    end
+		code = code.."object."..key.." = "
 
-    return code
+		if key == "Text" then
+			code = code.."'"..tostring(value).."'"
+		elseif key == "FontFace" then
+			code = code.."Font.new("..
+			"\""..value.Family.."\""..
+			", "..value.Weight..
+			", "..value.Style..
+			")"
+		elseif key == "AnchorPoint" then
+			local x, y = value.X, value.Y
+			code = code.."Vector2.new("..x..", "..y..")"
+		elseif key == "StudsOffsetWorldSpace" or key == "StudsOffset" then
+			code = code.."Vector3.new("..tostring(value)..")"
+		elseif key == "SizeOffset"  then
+			code = code.."Vector2.new("..tostring(value)..")"
+		elseif key == "Image" or (key == "HoverImage" and value ~= nil) then
+			code = code.."'"..tostring(value).."'"
+		elseif typeof(value) == "CFrame" then
+			code = code.."CFrame.new("..tostring(value)..")"
+		elseif typeof(value) == "BrickColor" then
+			code = code.."BrickColor.new(\""..tostring(value).."\")"
+		elseif typeof(value) == "Vector3" and key == "Size" then
+			local x, y, z = value.X, value.Y, value.Z
+			code = code.."Vector3.new("..x..", "..y..", "..z..")"
+		elseif typeof(value) == "UDim2" and (key == "Position" or key == "Size") then
+			local xScale, xOffset, yScale, yOffset = value.X.Scale, value.X.Offset, value.Y.Scale, value.Y.Offset
+			code = code.."UDim2.new("..xScale..", "..xOffset..", "..yScale..", "..yOffset..")"
+		elseif typeof(value) == "EnumItem" and key == "BorderMode" then
+			code = code..tostring(value)
+		elseif typeof(value) == "Color3" and (key == "BorderColor3" or key == "BackgroundColor3" or key == "TextColor3" or key == "TextStrokeColor3" or key == "ImageColor3") then
+			local r, g, b = value.R, value.G, value.B
+			code = code.."Color3.new("..r..", "..g..", "..b..")"
+		elseif typeof(value) == "EnumItem" and key == "Rotation" then
+			code = code.."Enum.Rotation."..tostring(value)
+		elseif typeof(value) == "EnumItem" and key == "SomeEnum" then
+			code = code.."Enum.SomeEnum."..tostring(value)
+		elseif typeof(value) == "Axes" then
+			code = code.."Axes.new("..tostring(value)..")"
+		elseif typeof(value) == "Ray" then
+			code = code.."Ray.new("..tostring(value.Origin)..", "..tostring(value.Direction)..")"
+		else
+			code = code..tostring(value)
+		end
+
+		code = code.."\n"
+	end
+
+	return code
 end
 
 local target = script.Parent
